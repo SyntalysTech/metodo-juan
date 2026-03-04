@@ -407,15 +407,117 @@ export default function PanelProfesor() {
 
                         </div>
                     </>
-                ) : (
-                    <div className="flex flex-col items-center justify-center h-full min-h-[60vh] text-center relative z-10 animate-in fade-in zoom-in duration-500">
-                        <div className="bg-slate-200/50 p-8 rounded-full mb-6">
-                            {activeTab === 'alumnado' && <Users className="w-16 h-16 text-slate-400" />}
-                            {activeTab === 'analitica' && <LayoutDashboard className="w-16 h-16 text-slate-400" />}
-                            {activeTab === 'config' && <Settings className="w-16 h-16 text-slate-400" />}
+                ) : activeTab === 'alumnado' ? (
+                    <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 w-full">
+                        <header className="mb-10">
+                            <h1 className="text-4xl font-black text-slate-900 mb-2 tracking-tight">Directorio de Alumnos</h1>
+                            <p className="text-slate-500 font-medium text-lg">Gestiona las licencias y revisa el desempeño individual.</p>
+                        </header>
+                        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200/60 overflow-hidden">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left">
+                                    <thead>
+                                        <tr className="bg-slate-50/50 text-slate-500 text-[10px] font-black uppercase tracking-widest border-b border-slate-100">
+                                            <th className="px-8 py-5">Nombre y Contacto</th>
+                                            <th className="px-8 py-5 text-center">Tests Realizados</th>
+                                            <th className="px-8 py-5 text-center">Tasa de Acierto</th>
+                                            <th className="px-8 py-5 text-center">Estado de Cuenta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-100">
+                                        {[
+                                            { nombre: "Laura Martínez", email: "laura.mtz@mail.com", tests: 42, acierto: 85, activo: true },
+                                            { nombre: "Carlos Gómez", email: "cgomez@mail.com", tests: 18, acierto: 60, activo: true },
+                                            { nombre: "Ana Ruiz", email: "ana.ruiz99@mail.com", tests: 156, acierto: 92, activo: true },
+                                            { nombre: "David López", email: "david.lopez@mail.com", tests: 0, acierto: 0, activo: false }
+                                        ].map((al, idx) => (
+                                            <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                                                <td className="px-8 py-6">
+                                                    <div className="font-black text-slate-900 text-sm tracking-tight">{al.nombre}</div>
+                                                    <div className="text-slate-500 text-xs font-semibold mt-0.5">{al.email}</div>
+                                                </td>
+                                                <td className="px-8 py-6 text-center font-black text-slate-700">{al.tests}</td>
+                                                <td className="px-8 py-6 text-center">
+                                                    <span className={`inline-block px-4 py-1.5 rounded-xl text-xs font-black tracking-wider ${al.acierto >= 80 ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' : al.acierto >= 50 ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>{al.acierto}%</span>
+                                                </td>
+                                                <td className="px-8 py-6 text-center">
+                                                    <div className="flex justify-center items-center">
+                                                        <span className={`inline-block w-4 h-4 rounded-full ${al.activo ? 'bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]' : 'bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.5)]'}`}></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Sección en construcción</h2>
-                        <p className="text-slate-500 font-medium max-w-md mx-auto text-lg pt-2">Esta es una vista del prototipo. La sección de <span className="font-bold text-slate-700">{activeTab === 'alumnado' ? 'Alumnado' : activeTab === 'analitica' ? 'Analítica' : 'Configuración'}</span> estará disponible una vez conectemos el dashboard real al modelo Backend.</p>
+                    </div>
+                ) : activeTab === 'analitica' ? (
+                    <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 w-full max-w-6xl">
+                        <header className="mb-10">
+                            <h1 className="text-4xl font-black text-slate-900 mb-2 tracking-tight">Rendimiento Global</h1>
+                            <p className="text-slate-500 font-medium text-lg">Métricas y KPIs del desempeño de tus alumnos resolviendo tests.</p>
+                        </header>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200/60 border-b-4 border-b-primary hover:-translate-y-1 transition-transform">
+                                <span className="block text-slate-400 text-xs font-black uppercase tracking-widest mb-2">Total Tests Completados</span>
+                                <span className="block text-5xl font-black text-slate-900">4,289</span>
+                                <span className="text-primary font-bold text-sm mt-3 block flex items-center gap-1">+14% respecto al mes anterior</span>
+                            </div>
+                            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200/60 border-b-4 border-b-emerald-500 hover:-translate-y-1 transition-transform">
+                                <span className="block text-slate-400 text-xs font-black uppercase tracking-widest mb-2">Acierto Promedio</span>
+                                <span className="block text-5xl font-black text-slate-900">76.4<span className="text-2xl text-slate-400">%</span></span>
+                                <span className="text-emerald-500 font-bold text-sm mt-3 block flex items-center gap-1">Crecimiento estable</span>
+                            </div>
+                            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200/60 border-b-4 border-b-amber-500 hover:-translate-y-1 transition-transform">
+                                <span className="block text-slate-400 text-xs font-black uppercase tracking-widest mb-2">Pregunta más fallada</span>
+                                <span className="block text-xl font-black text-slate-900 truncate mt-2">#Q1002 - Ortografía</span>
+                                <span className="text-amber-500 font-bold text-sm mt-5 block">42% de los alumnos fallan aquí</span>
+                            </div>
+                        </div>
+                        <div className="bg-white p-12 rounded-[2rem] shadow-sm border border-slate-200/60 flex flex-col items-center justify-center min-h-[350px] relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-50 to-white -z-10"></div>
+                            <LayoutDashboard className="w-20 h-20 text-slate-200 mb-6 group-hover:scale-110 transition-transform duration-500" />
+                            <h3 className="text-2xl font-black text-slate-400 tracking-tight">Cargando módulos de gráficas analíticas</h3>
+                            <p className="text-slate-400 font-medium mt-2">Chart.js renderizará métricas completas e informes PDF en producción.</p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="animate-in fade-in zoom-in-95 duration-500 relative z-10 w-full max-w-4xl">
+                        <header className="mb-10">
+                            <h1 className="text-4xl font-black text-slate-900 mb-2 tracking-tight">Ajustes del Sistema</h1>
+                            <p className="text-slate-500 font-medium text-lg">Configura las reglas de evaluación y comportamiento del motor.</p>
+                        </header>
+
+                        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200/60 overflow-hidden">
+                            <div className="p-8 border-b border-slate-100 flex items-center justify-between hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <div>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Penalización Estricta</h3>
+                                    <p className="text-slate-500 text-sm font-medium mt-1">Los fallos descuentan 0.33 puntos sobre la nota final del examen.</p>
+                                </div>
+                                <div className="w-16 h-9 bg-primary flex rounded-full items-center px-1 shadow-inner shrink-0 group-hover:bg-indigo-600 transition-colors">
+                                    <div className="w-7 h-7 bg-white rounded-full ml-auto shadow-md transform transition-transform"></div>
+                                </div>
+                            </div>
+                            <div className="p-8 border-b border-slate-100 flex items-center justify-between hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <div>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Mezclar Preguntas Aleatoriamente</h3>
+                                    <p className="text-slate-500 text-sm font-medium mt-1">Cada test generado mostrará un orden único para frustrar copias.</p>
+                                </div>
+                                <div className="w-16 h-9 bg-primary flex rounded-full items-center px-1 shadow-inner shrink-0 group-hover:bg-indigo-600 transition-colors">
+                                    <div className="w-7 h-7 bg-white rounded-full ml-auto shadow-md transform transition-transform"></div>
+                                </div>
+                            </div>
+                            <div className="p-8 flex items-center justify-between hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <div>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Notificar Simulacros (Email)</h3>
+                                    <p className="text-slate-500 text-sm font-medium mt-1">Enviar correo semanal con el desempeño del alumno a su tutor a cargo.</p>
+                                </div>
+                                <div className="w-16 h-9 bg-slate-200 flex rounded-full items-center px-1 shadow-inner shrink-0 group-hover:bg-slate-300 transition-colors">
+                                    <div className="w-7 h-7 bg-white rounded-full shadow-sm transform transition-transform"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
             </main>
